@@ -1,0 +1,87 @@
+<br>
+<%= link_to '<i class=" glyphicon glyphicon-plus-sign"></i> Nouveau contact'.html_safe, new_contact_path(@contact), class:"ml-3 text-warning" %>
+
+<!--Table-->
+<table class="table table-hover  table-striped table-sm">
+
+  <!--Table head-->
+  <thead>
+    <tr class="table-info" >
+      <th class="align-middle"> <small><i class="glyphicon glyphicon-th-list"></i></small> </th>
+      <th class="align-middle" width="20%"><i class="glyphicon glyphicon-user"></i> Contact</th>
+      <th class="align-middle" width="25%"><i class="glyphicon glyphicon-envelope"></i> Email</th>
+      <th class="align-middle" width="15%"><i class="glyphicon glyphicon-phone"></i> Tel</th>
+      <th class="align-middle"><i class="glyphicon glyphicon-tags"></i>&nbsp Tags</th>
+      <th class="align-middle"> </th>
+      <th class="align-middle"> </th>
+    </tr>
+  </thead>
+  <!--Table head end-->
+
+  <!--Table body-->
+  <tbody>
+
+    <% @contacts.each do |contact | %>
+      <tr>
+        <td> <%= contact.id %></td>
+        <td>
+          <%= link_to contact.name, contact_path(contact) %>
+        </td>
+        <td> <%= contact.email %></td>
+        <td> <%= contact.tel %></td>
+        <td>
+
+          <% contact.tags.each do |tag| %>
+            <span class="badge badge-primary">
+              <%= link_to tag.name, contacts_path + "?page=" + 1.to_s + "&pagination=" + params[:pagination].to_s+ "&tag=" + tag.name.to_s, style: 'color: white;' %>
+            </span>
+          <% end %>
+
+        </td>
+        <td>
+          <%= link_to '<i class="glyphicon glyphicon-pencil"></i>'.html_safe, edit_contact_path(contact), class:"ml-3 text-warning" %>
+        </td>
+        <td>
+          <%= link_to '<i class="glyphicon glyphicon-trash"></i>'.html_safe, contact_path(contact),
+            method: :delete, data: {confirm: "Confirmer la suppression ?"}, class:"ml-3 text-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+  <!--Table body end-->
+
+</table>
+<!--Table end-->
+
+
+<%= link_to "Afficher 20 contacts par page", contacts_path + "?page="+ 1.to_s + "&pagination=" + 20.to_s + "&tag=" + params[:tag].to_s, class: "btn btn-info" %> &nbsp
+<%= link_to "Afficher 50 contacts par page", contacts_path + "?page="+ 1.to_s + "&pagination=" + 50.to_s + "&tag=" + params[:tag].to_s, class: "btn btn-primary" %> <br>
+
+<!-- @pagination_size =  <%#=  params[:pagination] %> <br>
+@number_of_pages = <%=  @number_of_pages %> <br>
+@contacts_size =  <%=  @contacts.size %> <br> -->
+
+<!-- Current page = -->
+<% current_page = params[:page] %>
+<!-- previous page = -->
+<%  previous_page = current_page.to_i > 1 ? (current_page.to_i - 1).to_s : "1" %>
+<!-- next page =  -->
+<%  next_page = current_page.to_i > 0 && current_page.to_i < @number_of_pages ? (current_page.to_i + 1).to_s : @number_of_pages.to_s %> <br>
+
+<ul class="pagination">
+  <li class="page-item">
+    <%= link_to "Precédent", contacts_path + "?page=" + previous_page + "&pagination=" + params[:pagination].to_s + "&tag=" + params[:tag].to_s, class: "page-link" %>
+  </li>
+  <%  1.upto(@number_of_pages) do |i| %>
+    <% active = params[:page] == i.to_s ? "active" : ""  %>
+    <li class="<%= active %>"> <%= link_to i, contacts_path + "?page=" + i.to_s + "&pagination=" + params[:pagination].to_s + "&tag=" + params[:tag].to_s %>
+
+    </li>
+  <% end %>
+  <li class="page-item">
+    <%= link_to "Suivant", contacts_path + "?page=" + next_page + "&pagination=" + params[:pagination].to_s + "&tag=" + params[:tag].to_s, class: "page-link " %>
+  </li>
+</ul>
+<br>
+
+

@@ -1,0 +1,45 @@
+<%= simple_form_for @contact do |f| %>
+
+  <div class="row">
+
+    <div class="col-4">
+      <%= f.input :firstname, label: "Prénom", class: "form-control form-control-sm" %>
+    </div>
+
+    <div class="col-4">
+      <%= f.input :lastname, label: "Nom", class: "form-control form-control-sm" %>
+    </div>
+
+    <div class="col-4">
+      <%= f.input :tel, label: "Tel", class: "form-control form-control-sm" %>
+    </div>
+
+    <div class="col-6">
+      <%= f.input :email, label: "Email", class: "form-control form-control-sm" %>
+    </div>
+
+    <div class="col-6">
+      <%= f.input :address, label: "Adresse", class: "form-control form-control-sm" %>
+    </div>
+
+  </div>
+
+  <h3 style= 'color: grey;'>Ajouter des tags</h3>
+
+  <div class="tags">
+    <%= f.simple_fields_for :tags do |tag| %>
+      <%= render 'contacts/tag_fields', f: tag %>
+    <% end %>
+  </div>
+
+  <div class="col-12">
+
+    <%= link_to_add_association button_tag('<i class="glyphicon glyphicon-plus"></i>'.html_safe, type: "button", class: "close form-control btn"), f, :tags, 'data-association-insertion-node' => ".tags", 'data-association-insertion-method' => "append", style: ' display:inline; float:left;' %>
+  </div>
+
+  <%= f.submit class: "btn-info btn-lg btn-block" %>
+
+<% end %>
+<br>
+
+<%= link_to '<i class=" glyphicon glyphicon-step-backward"></i> Revenir à la liste de contacts'.html_safe, contacts_path %>
