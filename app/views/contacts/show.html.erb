@@ -2,6 +2,14 @@
 <div class="flat-card">
   <div class="flat-card-content">
     <div class="flat-card-title">
+
+      <div class=" text-center">
+        <%= link_to "<i class='glyphicon glyphicon-chevron-left'></i>".html_safe,
+          @contact.prev, style: "color: grey; font-size: 200%;" %> &nbsp
+        <%= link_to "<i class='glyphicon glyphicon-chevron-right'></i>".html_safe,
+          @contact.next, style: "color: grey; font-size: 200%;" %>
+      </div>
+
       <h2 text-center>
         <span class="glyphicon glyphicon-file"></span> Contact
       </h2>

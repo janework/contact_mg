@@ -7,12 +7,12 @@ class ContactsController < ApplicationController
       tags = Tag.where(name: params[:tag])
       @contacts = tags.map(&:contacts).flatten if tags.present? && tags.any?
     end
-    @contacts = Contact.all if !@contacts.present? || @contacts.empty?
-    @collection_size = @contacts.size
-    @number_of_pages
     params[:pagination] = params[:pagination].nil? ? 10 : params[:pagination].to_i
     params[:page] = "1" if params[:page].nil?
-    pages(@contacts, @collection_size, params[:pagination], params[:page])
+    @collection_size = !@contacts.nil? ? @contacts.count : Contact.count
+    @number_of_pages = @collection_size.fdiv(params[:pagination]).ceil
+    @contacts = Contact.limit(params[:pagination])
+    .offset((params[:page].to_i - 1) * params[:pagination])
 
   end
 
@@ -24,10 +24,11 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(contact_params)
 
-    if @contact.save!
+    if @contact.save
       redirect_to contact_path(@contact),
         notice: 'Contact was successfully created.'
     else
+
       render :new
     end
 
@@ -66,28 +67,6 @@ class ContactsController < ApplicationController
 
     def set_contact
       @contact = Contact.find(params[:id])
-    end
-
-    def pages(collection, collection_size, pagination_size, page)
-      if collection_size >= 1
-        @number_of_pages = collection_size / pagination_size
-        modulo_page_nb_of_results = collection_size % pagination_size
-        page = page.to_i
-        if modulo_page_nb_of_results > 0
-          @number_of_pages += 1
-        end
-        if modulo_page_nb_of_results > 0 && page == @number_of_pages
-          @contacts = collection[
-            ( collection_size - modulo_page_nb_of_results ),
-            modulo_page_nb_of_results]
-        else
-          start = pagination_size * ( page - 1 )
-          end_of = start + pagination_size
-          @contacts = collection[start...end_of]
-        end
-
-      end
-      params[:page] = page.to_s
     end
 
 end
