@@ -1,6 +1,6 @@
 <br>
 <div class="row">
-  <%= link_to '<i class=" glyphicon glyphicon-plus-sign"></i> Nouveau contact'.html_safe,
+  <%= link_to ((safe_glyph "plus-sign") + " Nouveau contact"),
   new_contact_path(@contact), class:"ml-3 text-warning" %>&nbsp
   <%= link_to "Afficher 20 contacts par page", contacts_path +
    "?page="+ 1.to_s + "&pagination=" + 20.to_s + "&tag=" + params[:tag].to_s,
@@ -16,11 +16,11 @@
   <!--Table head-->
   <thead>
     <tr class="table-info">
-      <th class="align-middle"> <small><i class="glyphicon glyphicon-th-list"></i></small> </th>
-      <th class="align-middle" width="20%"><i class="glyphicon glyphicon-user"></i> Contact</th>
-      <th class="align-middle" width="25%"><i class="glyphicon glyphicon-envelope"></i> Email</th>
-      <th class="align-middle" width="15%"><i class="glyphicon glyphicon-phone"></i> Tel</th>
-      <th class="align-middle"><i class="glyphicon glyphicon-tags"></i>&nbsp Tags</th>
+      <th class="align-middle"> <small> <%= safe_glyph "th-list" %></small> </th>
+      <th class="align-middle" width="20%"><%= safe_glyph "user" %> Contact</th>
+      <th class="align-middle" width="25%"> <%= safe_glyph "envelope" %> Email</th>
+      <th class="align-middle" width="15%"> <%= safe_glyph "phone" %> Tel</th>
+      <th class="align-middle"> <%= safe_glyph "tags" %> &nbsp Tags</th>
       <th class="align-middle"> </th>
       <th class="align-middle"> </th>
     </tr>
@@ -49,11 +49,11 @@
 
         </td>
         <td>
-          <%= link_to '<i class="glyphicon glyphicon-pencil"></i>'.html_safe, edit_contact_path(contact),
+          <%= link_to (safe_glyph "pencil"), edit_contact_path(contact),
           class:"ml-3 text-warning" %>
         </td>
         <td>
-          <%= link_to '<i class="glyphicon glyphicon-trash"></i>'.html_safe, contact_path(contact),
+          <%= link_to (safe_glyph "trash"), contact_path(contact),
             method: :delete, data: {confirm: "Confirmer la suppression ?"}, class:"ml-3 text-danger" %>
         </td>
       </tr>

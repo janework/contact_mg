@@ -34,7 +34,7 @@
 
   <div class="col-12">
 
-    <%= link_to_add_association button_tag('<i class="glyphicon glyphicon-plus"></i>'.html_safe, type: "button", class: "close form-control btn"), f, :tags, 'data-association-insertion-node' => ".tags", 'data-association-insertion-method' => "append", style: ' display:inline; float:left;' %>
+    <%= link_to_add_association button_tag((safe_glyph "plus"), type: "button", class: "close form-control btn"), f, :tags, 'data-association-insertion-node' => ".tags", 'data-association-insertion-method' => "append", style: ' display:inline; float:left;' %>
   </div>
 
   <%= f.submit class: "btn-info btn-lg btn-block" %>
@@ -42,4 +42,4 @@
 <% end %>
 <br>
 
-<%= link_to '<i class=" glyphicon glyphicon-step-backward"></i> Revenir à la liste de contacts'.html_safe, contacts_path %>
+<%= link_to ((safe_glyph "step-backward") + " Revenir à la liste de contacts"), contacts_path %>

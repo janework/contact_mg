@@ -4,24 +4,25 @@
     <div class="flat-card-title">
 
       <div class=" text-center">
-        <%= link_to "<i class='glyphicon glyphicon-chevron-left'></i>".html_safe,
+        <%= link_to (safe_glyph "chevron-left"),
           @contact.prev, style: "color: grey; font-size: 200%;" %> &nbsp
-        <%= link_to "<i class='glyphicon glyphicon-chevron-right'></i>".html_safe,
+        <%= link_to (safe_glyph "chevron-right"),
           @contact.next, style: "color: grey; font-size: 200%;" %>
+
       </div>
 
       <h2 text-center>
-        <span class="glyphicon glyphicon-file"></span> Contact
+         <%= safe_glyph "file" %> Contact
       </h2>
 
     </div>
-      <p><i class="glyphicon glyphicon-user"></i> <%= link_to @contact.name, contact_path(@contact) %></p>
-      <p><i class="glyphicon glyphicon-envelope"></i> <%= @contact.email %></p>
-      <p><i class="glyphicon glyphicon-phone"></i> <%= @contact.tel %></p>
-      <p><i class=" glyphicon glyphicon-map-marker"></i> <%= @contact.address %></p>
+      <p> <%= safe_glyph "user" %> <%= link_to @contact.name, contact_path(@contact) %></p>
+      <p> <%= safe_glyph "envelope" %> <%= @contact.email %></p>
+      <p> <%= safe_glyph "phone" %> <%= @contact.tel %></p>
+      <p> <%= safe_glyph "map-marker" %> <%= @contact.address %></p>
       <div class="flex">
         <div class="flex">
-          <i class="glyphicon glyphicon-tags"></i> &nbsp Tags &nbsp
+          <%= safe_glyph "tags" %> &nbsp Tags &nbsp
 
             <% @contact.tags.each do |tag| %>
               <span class="badge badge-primary">
@@ -32,10 +33,10 @@
       </div>
   </div>
   <div class="flat-card-actions">
-    <%= link_to '<i class="glyphicon glyphicon-pencil"></i> Editer'.html_safe, edit_contact_path(@contact), class:"ml-3 text-warning" %>
-    <%= link_to '<i class="glyphicon glyphicon-trash"></i> Supprimer'.html_safe, contact_path(@contact),
+    <%= link_to ((safe_glyph "pencil") + " Editer"), edit_contact_path(@contact), class:"ml-3 text-warning" %>
+    <%= link_to ((safe_glyph "trash") + " Supprimer"), contact_path(@contact),
         method: :delete, data: {confirm: "Confirmer la suppression ?"}, class:"ml-3 text-danger" %>
-    <%= link_to '<i class=" glyphicon glyphicon-step-backward"></i> Revenir à la liste de contacts'.html_safe, contacts_path %>
+    <%= link_to ((safe_glyph "step-backward") + " Revenir à la liste de contacts"), contacts_path %>
 
   </div>
 </div>
