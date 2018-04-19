@@ -11,8 +11,13 @@ class ContactsController < ApplicationController
     params[:page] = "1" if params[:page].nil?
     @collection_size = !@contacts.nil? ? @contacts.count : Contact.count
     @number_of_pages = @collection_size.fdiv(params[:pagination]).ceil
-    @contacts = Contact.limit(params[:pagination])
-    .offset((params[:page].to_i - 1) * params[:pagination])
+    if @contacts.nil?
+      @contacts = Contact.limit(params[:pagination])
+      .offset((params[:page].to_i - 1) * params[:pagination])
+    else
+      @contacts = Contact.limit(params[:pagination])
+      .offset((params[:page].to_i - 1) * params[:pagination]).where(id: @contacts.map(&:id))
+    end
 
   end
 
