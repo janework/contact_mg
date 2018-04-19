@@ -5,8 +5,7 @@
   </div>
 
   <div class="col-xs-2">
-    <%= link_to_remove_association button_tag(
-    '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe,
+    <%= link_to_remove_association button_tag( (safe_glyph "remove-sign"),
     type: "button", class: "close form-control btn"), f, style: 'height:40%; width:20%; display:inline;' %>
   </div>
 
