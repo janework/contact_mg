@@ -15,4 +15,12 @@ class Contact < ApplicationRecord
     self.email.try(:downcase!)
   end
 
+  def next
+    Contact.where("id > ?", id).limit(1).first
+  end
+
+  def prev
+    Contact.where("id < ?", id).last
+  end
+
 end
